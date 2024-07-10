@@ -1,6 +1,7 @@
 <template>
   <div
     class="flex flex-col items-center gap-4 p-4 bg-gray-900 rounded-lg shadow-lg hover:bg-gray-800 transition-colors duration-300 w-[400px]"
+    :class="{ border: active, 'border-blue-600': active }"
   >
     <img :src="'storage/' + track.image" alt="Album Art" class="rounded-lg" />
     <div class="flex flex-col flex-grow">
@@ -34,9 +35,12 @@
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps({
+  active: {
+    type: Boolean,
+    default: false,
+  },
   track: {
     type: Object,
-    required: true,
   },
 });
 

@@ -14,7 +14,11 @@ class TrackController extends Controller
      */
     public function index()
     {
-        $tracks = Track::where('display', true)->orderBy('artist')->get();
+        $tracks = Track::where('display', true)->with("playlists")->orderBy('artist')->get();
+
+        foreach ($tracks as $track) {
+            
+        }
 
         return Inertia::render('Track/index', [
             'tracks' => $tracks,

@@ -1,16 +1,10 @@
 <template>
   <MusicLayout>
     <template #title>
-      <p>Liste de mes tracks</p>
+      <p>{{ playlist.title }}</p>
     </template>
     <template #action>
-      {{ $page.props.isAdmin }}
-      <Link
-        v-if="$page.props.isAdmin"
-        :href="route('tracks.create')"
-        class="text-black"
-        >Créer une musique</Link
-      >
+      <Link :href="route('playlists.index')" class="text-black">Retour</Link>
     </template>
     <template #content>
       <div>
@@ -20,7 +14,6 @@
           placeholder="Search tracks..."
           class="p-2 mb-4 border rounded"
         />
-
         <div class="grid grid-cols-4 justify-center gap-8">
           <Track
             v-for="track in filteredTracks"
@@ -34,24 +27,22 @@
     </template>
   </MusicLayout>
 </template>
-
-<script>
+  
+  <script>
 import MusicLayout from "@/Layouts/MusicLayout.vue";
-import Track from "@/Components/Track.vue";
 import { Link } from "@inertiajs/vue3";
+import Track from "@/Components/Track.vue";
 
 export default {
-  name: "TrackIndex",
+  name: "Show",
   components: {
     MusicLayout,
-    Track,
     Link,
+    Track,
   },
   props: {
-    tracks: {
-      type: Array,
-      required: true,
-    },
+    playlist: Object,
+    tracks: Array,
   },
   data() {
     return {
@@ -62,11 +53,8 @@ export default {
   },
   computed: {
     filteredTracks() {
-      const query = this.filter.toLowerCase();
-      return this.tracks.filter(
-        (track) =>
-          track.title.toLowerCase().includes(query) ||
-          track.artist.toLowerCase().includes(query)
+      return this.tracks.filter((track) =>
+        track.title.toLowerCase().includes(this.filter.toLowerCase())
       );
     },
   },
@@ -97,3 +85,4 @@ export default {
   },
 };
 </script>
+  

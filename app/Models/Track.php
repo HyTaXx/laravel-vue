@@ -23,4 +23,9 @@ class Track extends Model
     {
         return 'uuid';
     }
+
+    public function playlists()
+    {
+        return $this->belongsToMany(Playlist::class)->withTimestamps();
+    }
 }
