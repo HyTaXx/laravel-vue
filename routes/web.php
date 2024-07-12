@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TrackController;
+use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PlaylistController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',
         Route::put('/{track}', 'update')->name('update');
         Route::delete('/{track}', 'destroy')->name('destroy');
     });
+    Route::get('api-keys', [ApiKeyController::class, 'index'])->name('api-keys');
+    Route::get('api-keys/create', [ApiKeyController::class, 'create'])->name('api-keys.create');
+    Route::post('api-keys', [ApiKeyController::class, 'store'])->name('api-keys.store');
+    Route::delete('api-keys/{apiKey}', [ApiKeyController::class, 'destroy'])->name('api-keys.destroy');
 });
 
 Route::get('/test',[HomeController::class, 'test'])->name('test');

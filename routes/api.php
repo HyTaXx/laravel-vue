@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiKeyPlaylistController;
+use App\Http\Controllers\ApiKeyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::middleware(['apikey'])->group(function () {
+    Route::get('playlists', [ApiKeyPlaylistController::class, 'playlists'])->name('api-playlists.index');
 });
