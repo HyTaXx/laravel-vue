@@ -87,6 +87,17 @@
                   ]"
                   >Playlists</Link
                 >
+                <Link
+                  v-if="$page.props.auth.user"
+                  :href="route('api-keys')"
+                  class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                  :class="[
+                    route().current().includes('api-keys')
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  ]"
+                  >API Keys</Link
+                > 
               </div>
             </div>
           </div>
@@ -173,11 +184,13 @@
       </div>
     </nav>
   </div>
-  <slot name="title"></slot>
+  <div class="p-5 font-bold text-xl">
+    <slot name="title"></slot>
+  </div>
   <div>
     <slot name="action"></slot>
   </div>
-  <div>
+  <div class="p-5">
     <slot name="content"></slot>
   </div>
 </template>
